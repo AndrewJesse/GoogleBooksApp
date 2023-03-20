@@ -1,0 +1,28 @@
+﻿@model List<Google.Apis.Books.v1.Data.Volume>
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<h1>Book List</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Authors</th>
+            <th>Publisher</th>
+            <th>Published Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.VolumeInfo.Title</td>
+                <td>@(string.Join(", ", book.VolumeInfo.Authors))</td>
+                <td>@book.VolumeInfo.Publisher</td>
+                <td>@book.VolumeInfo.PublishedDate</td>
+            </tr>
+        }
+    </tbody>
+</table>
