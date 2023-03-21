@@ -10,8 +10,9 @@
         <tr>
             <th>Title</th>
             <th>Authors</th>
-            <th>Publisher</th>
+            <th>Description</th>
             <th>Published Date</th>
+            <th>Cover</th>
         </tr>
     </thead>
     <tbody>
@@ -20,8 +21,14 @@
             <tr>
                 <td>@book.VolumeInfo.Title</td>
                 <td>@(string.Join(", ", book.VolumeInfo.Authors))</td>
-                <td>@book.VolumeInfo.Publisher</td>
+                <td>@book.VolumeInfo.Description</td>
                 <td>@book.VolumeInfo.PublishedDate</td>
+                <td>
+                        @if (book.VolumeInfo.ImageLinks != null)
+                        {
+                        <img src="@book.VolumeInfo.ImageLinks.Thumbnail" alt="Book thumbnail" />
+                        }
+                </td>
             </tr>
         }
     </tbody>
