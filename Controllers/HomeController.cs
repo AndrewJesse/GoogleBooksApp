@@ -15,8 +15,8 @@ namespace GoogleBooksApp.Controllers
 
         public async Task<IActionResult> Index() // Define a method named Index that returns an IActionResult
         {
-            var books = await googleBooksApiClient.GetBooksAsync("subject:thriller"); // Call the GetBooksAsync method of the GoogleBooksApiClient instance to get a list of books
-            return View(books.Items); // Pass the list of books to the View method and return the result as an IActionResult
+            var books = await googleBooksApiClient.GetBooksAsync("subject:thriller"); 
+            return View(books.Items); 
         }
     }
 }
