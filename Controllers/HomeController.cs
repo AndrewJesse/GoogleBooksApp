@@ -1,6 +1,7 @@
-﻿using Google.Apis.Books.v1.Data; // Import the Google Books API data models
+﻿using Microsoft.AspNetCore.Mvc;
+using Google.Apis.Books.v1.Data; // Import the Google Books API data models
 using GoogleBooksApp.Services; // Import the Google Books API client service
-using Microsoft.AspNetCore.Mvc; // Import the ASP.NET Core MVC library
+
 
 namespace GoogleBooksApp.Controllers
 {
@@ -17,6 +18,11 @@ namespace GoogleBooksApp.Controllers
         {
             var books = await googleBooksApiClient.GetBooksAsync("subject:thriller"); 
             return View(books.Items); 
+        }
+
+        public IActionResult Privacy()
+        {
+            return View();
         }
     }
 }
