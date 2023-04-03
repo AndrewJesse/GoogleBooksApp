@@ -23,17 +23,13 @@ namespace GoogleBooksApp.Services
             });
         }
 
-        // Method that retrieves a list of books from the Google Books API based on a query
-        public async Task<Volumes> GetBooksAsync(string query, int maxResults = 40)
+        public async Task<Volumes> GetBooksAsync(string query, int startIndex = 0)
         {
-            // Create a request to search for volumes (books) with the specified query
             var request = booksService.Volumes.List(query);
-
-            // Set the maximum number of results to be returned
-            request.MaxResults = maxResults;
-
-            // Execute the request and return the results
+            request.MaxResults = 5; // Set this to match the PageSize in HomeController
+            request.StartIndex = startIndex;
             return await request.ExecuteAsync();
         }
+
     }
 }

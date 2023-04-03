@@ -10,7 +10,7 @@ namespace GoogleBooksApp.Controllers
     public class HomeController : Controller 
     {
         private readonly GoogleBooksApiClient googleBooksApiClient; 
-        public int PageSize = 2;
+        public int PageSize = 5;
         public HomeController() 
         {
             googleBooksApiClient = new GoogleBooksApiClient(); 
@@ -18,12 +18,11 @@ namespace GoogleBooksApp.Controllers
 
         public async Task<IActionResult> Index(int productPage = 1)
         {
-            var books = await googleBooksApiClient.GetBooksAsync("subject:thriller");
+            int startIndex = (productPage - 1) * PageSize;
+            var books = await googleBooksApiClient.GetBooksAsync("subject:thriller", startIndex);
             var viewModel = new BooksListViewModel
             {
                 Books = books.Items
-                    .Skip((productPage - 1) * PageSize)
-                    .Take(PageSize)
                     .ToList(),
                 PagingInfo = new PagingInfo
                 {
@@ -35,6 +34,7 @@ namespace GoogleBooksApp.Controllers
 
             return View(viewModel);
         }
+
 
 
         public IActionResult Privacy()

@@ -31,10 +31,11 @@
                         <td>@book.VolumeInfo.Description</td>
                         <td>@book.VolumeInfo.PublishedDate</td>
                         <td>
-                            @if (book.VolumeInfo.ImageLinks != null)
-                            {
-                                <img src="@book.VolumeInfo.ImageLinks.Thumbnail" alt="Book thumbnail" />
-                            }
+                                @if (book.VolumeInfo.ImageLinks != null)
+                                {
+                                    <img class="book-thumbnail" src="@book.VolumeInfo.ImageLinks.Thumbnail" alt="Book thumbnail" />
+                                }
+
                         </td>
                     </tr>
                 }
@@ -46,3 +47,9 @@
     </div>
 </div>
 </div>
+<style>
+    .book-thumbnail {
+        width: 85%;
+        height: auto;
+    }
+</style>
