@@ -5,33 +5,46 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace SportsStore.Infrastructure 
+namespace SportsStore.Infrastructure
 {
-    [HtmlTargetElement("div", Attributes = "page-model")] 
-    public class PageLinkTagHelper : TagHelper 
+    [HtmlTargetElement("div", Attributes = "page-model")]
+    public class PageLinkTagHelper : TagHelper
     {
-        private IUrlHelperFactory urlHelperFactory; 
-        public PageLinkTagHelper(IUrlHelperFactory helperFactory) 
+        private IUrlHelperFactory urlHelperFactory;
+        public PageLinkTagHelper(IUrlHelperFactory helperFactory)
         {
-            urlHelperFactory = helperFactory; 
+            urlHelperFactory = helperFactory;
         }
         [ViewContext]
-        [HtmlAttributeNotBound] 
-        public ViewContext? ViewContext { get; set; } 
-        public PagingInfo? PageModel { get; set; } 
-        public string? PageAction { get; set; } 
-        public override void Process(TagHelperContext context, TagHelperOutput output) 
+        [HtmlAttributeNotBound]
+        public ViewContext? ViewContext { get; set; }
+        public PagingInfo? PageModel { get; set; }
+        public string? PageAction { get; set; }
+        public int MaxPagesToShow { get; set; } = 10; // Add this property
+
+        public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            if (ViewContext != null && PageModel != null) 
+            if (ViewContext != null && PageModel != null)
             {
-                IUrlHelper urlHelper = urlHelperFactory.GetUrlHelper(ViewContext); 
-                TagBuilder result = new TagBuilder("div"); 
-                for (int i = 1; i <= PageModel.TotalPages; i++) 
+                IUrlHelper urlHelper = urlHelperFactory.GetUrlHelper(ViewContext);
+                TagBuilder result = new TagBuilder("div");
+
+                int startPage = Math.Max(1, PageModel.CurrentPage - MaxPagesToShow / 2);
+                int endPage = Math.Min(PageModel.TotalPages, startPage + MaxPagesToShow - 1);
+
+                for (int i = startPage; i <= endPage; i++)
                 {
-                    TagBuilder tag = new TagBuilder("a"); 
-                    tag.Attributes["href"] = urlHelper.Action(PageAction, new { productPage = i }); tag.InnerHtml.Append(i.ToString()); result.InnerHtml.AppendHtml(tag); 
-                } 
-                output.Content.AppendHtml(result.InnerHtml); 
+                    TagBuilder tag = new TagBuilder("a");
+                    tag.Attributes["href"] = urlHelper.Action(PageAction, new { productPage = i });
+                    tag.InnerHtml.Append(i.ToString());
+                    if (i == PageModel.CurrentPage)
+                    {
+                        tag.AddCssClass("active");
+                    }
+                    result.InnerHtml.AppendHtml(tag);
+                }
+
+                output.Content.AppendHtml(result.InnerHtml);
             }
         }
     }
