@@ -8,17 +8,21 @@ namespace GoogleBooksApp.Controllers
     public class HomeController : Controller // Define a controller class named HomeController
     {
         private readonly GoogleBooksApiClient googleBooksApiClient; // Declare a field to hold an instance of the GoogleBooksApiClient class
-
+        public int PageSize = 2;
         public HomeController() // Define a constructor method for the HomeController class
         {
             googleBooksApiClient = new GoogleBooksApiClient(); // Create a new instance of the GoogleBooksApiClient class and assign it to the googleBooksApiClient field
         }
 
-        public async Task<IActionResult> Index() // Define a method named Index that returns an IActionResult
+        public async Task<IActionResult> Index(int productPage = 1)
         {
-            var books = await googleBooksApiClient.GetBooksAsync("subject:thriller"); 
-            return View(books.Items); 
+            var books = await googleBooksApiClient.GetBooksAsync("subject:thriller");
+            return View(books.Items
+                .Skip((productPage - 1) * PageSize)
+                .Take(PageSize)
+                .ToList()); // Convert the Enumerable.ListPartition to a List
         }
+
 
         public IActionResult Privacy()
         {
