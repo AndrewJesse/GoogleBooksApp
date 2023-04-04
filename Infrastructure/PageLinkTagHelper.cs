@@ -61,7 +61,7 @@ namespace SportsStore.Infrastructure
                     result.InnerHtml.AppendHtml(tag);
 
                 }
-                output.Content.AppendHtml(result.InnerHtml)
+                output.Content.AppendHtml(result.InnerHtml);
             }
         }
     }
