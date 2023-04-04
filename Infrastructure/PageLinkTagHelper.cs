@@ -20,7 +20,10 @@ namespace SportsStore.Infrastructure
         public ViewContext? ViewContext { get; set; }
         public PagingInfo? PageModel { get; set; }
         public string? PageAction { get; set; }
-        public int MaxPagesToShow { get; set; } = 10; // Add this property
+        public int MaxPagesToShow { get; set; } = 10;
+
+        public string PreviousPageText { get; set; } = "&lt;";
+        public string NextPageText { get; set; } = ">";
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -31,7 +34,14 @@ namespace SportsStore.Infrastructure
 
                 int startPage = Math.Max(1, PageModel.CurrentPage - MaxPagesToShow / 2);
                 int endPage = Math.Min(PageModel.TotalPages, startPage + MaxPagesToShow - 1);
+                if (PageModel.CurrentPage != 1) 
+                { 
+                    TagBuilder tag = new TagBuilder("a");
+                    tag.Attributes["href"] = urlHelper.Action(PageAction, new { productPage = PageModel.CurrentPage - 1 });
+                    tag.InnerHtml.AppendHtml(PreviousPageText);
+                    result.InnerHtml.AppendHtml(tag);
 
+                }
                 for (int i = startPage; i <= endPage; i++)
                 {
                     TagBuilder tag = new TagBuilder("a");
