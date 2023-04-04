@@ -23,7 +23,7 @@ namespace SportsStore.Infrastructure
         public int MaxPagesToShow { get; set; } = 10;
 
         public string PreviousPageText { get; set; } = "&lt;";
-        public string NextPageText { get; set; } = ">";
+        public string NextPageText { get; set; } = "&gt;";
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
