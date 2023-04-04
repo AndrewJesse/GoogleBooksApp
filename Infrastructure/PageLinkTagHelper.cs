@@ -53,9 +53,17 @@ namespace SportsStore.Infrastructure
                     }
                     result.InnerHtml.AppendHtml(tag);
                 }
+                if (PageModel.CurrentPage != PageModel.TotalPages)
+                {
+                    TagBuilder tag = new TagBuilder("a");
+                    tag.Attributes["href"] = urlHelper.Action(PageAction, new { productPage = PageModel.CurrentPage + 1 });
+                    tag.InnerHtml.AppendHtml(NextPageText);
+                    result.InnerHtml.AppendHtml(tag);
 
-                output.Content.AppendHtml(result.InnerHtml);
+                }
+                output.Content.AppendHtml(result.InnerHtml)
             }
         }
     }
 }
+
