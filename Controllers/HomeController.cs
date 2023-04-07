@@ -11,9 +11,9 @@ namespace GoogleBooksApp.Controllers
     {
         private readonly GoogleBooksApiClient googleBooksApiClient; 
         public int PageSize = 5;
-        public HomeController() 
+        public HomeController(IConfiguration configuration) 
         {
-            googleBooksApiClient = new GoogleBooksApiClient(); 
+            googleBooksApiClient = new GoogleBooksApiClient(configuration); 
         }
 
         public async Task<IActionResult> Index(int productPage = 1)
