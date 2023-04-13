@@ -5,9 +5,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<GoogleBooksApiClient>();
-
+builder.Services.AddHsts(opts =>
+{
+    opts.MaxAge = TimeSpan.FromDays(1);
+    opts.IncludeSubDomains = true;
+});
 var app = builder.Build();
-
+if (app.Environment.IsProduction())
+{
+    app.UseHsts();
+}
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
