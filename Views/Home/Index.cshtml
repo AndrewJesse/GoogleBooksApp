@@ -13,7 +13,7 @@
         <div class="col-lg-10 col-md-9 col-sm-12">
             <h1>Book List</h1>
             <table class="table">
-            <thead>
+                <thead>
                 <tr>
                     <th>Title</th>
                     <th>Authors</th>
@@ -21,31 +21,37 @@
                     <th>Published Date</th>
                     <th>Cover</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 @foreach (var book in Model.Books )
                 {
                     <tr>
                         <td>@book.VolumeInfo.Title</td>
                         <td>@(string.Join(", ", book.VolumeInfo.Authors))</td>
-                        <td>@book.VolumeInfo.Description</td>
+                        <td>@(book.VolumeInfo.Description?.Length > 100 ? book.VolumeInfo.Description.Substring(0, 100) + "..." : book.VolumeInfo.Description)</td>
+
                         <td>@book.VolumeInfo.PublishedDate</td>
                         <td>
-                                @if (book.VolumeInfo.ImageLinks != null)
-                                {
-                                    <img class="book-thumbnail" src="@book.VolumeInfo.ImageLinks.Thumbnail" alt="Book thumbnail" />
-                                }
+                            @if (book.VolumeInfo.ImageLinks != null)
+                            {
+                                <img class="book-thumbnail" src="@book.VolumeInfo.ImageLinks.Thumbnail" alt="Book thumbnail" />
+                            }
 
                         </td>
                     </tr>
                 }
-            </tbody>
+                </tbody>
 
-        </table>
-            <div page-model="@Model?.PagingInfo" page-action="Index"></div>
+            </table>
 
+            <div page-classes-enabled="true"
+                 page-class="btn btn-group pull-right m-1" page-class-normal="btn-outline-dark" 
+                 page-class-selected="btn-primary" page-model="@Model?.PagingInfo" page-action="Index" >
+            </div>
+
+
+        </div>
     </div>
-</div>
 </div>
 <style>
     .book-thumbnail {
