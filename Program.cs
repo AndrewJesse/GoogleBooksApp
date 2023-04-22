@@ -1,4 +1,5 @@
 using GoogleBooksApp.Services;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,8 @@ builder.Services.AddHsts(opts =>
     opts.MaxAge = TimeSpan.FromDays(1);
     opts.IncludeSubDomains = true;
 });
+builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "BooksLibrary", Version = "v1" }); });
+
 var app = builder.Build();
 if (app.Environment.IsProduction())
 {
@@ -33,5 +36,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseSwagger();
+app.UseSwaggerUI(options => { options.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApp"); });
 
 app.Run();
