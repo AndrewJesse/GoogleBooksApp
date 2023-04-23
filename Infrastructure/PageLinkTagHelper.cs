@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using System;
+using System.Collections.Generic;
 
 namespace SportsStore.Infrastructure
 {
@@ -25,6 +27,12 @@ namespace SportsStore.Infrastructure
         public string PreviousPageText { get; set; } = "&lt;";
         public string NextPageText { get; set; } = "&gt;";
 
+        // Add these new properties for styling
+        public bool PageClassesEnabled { get; set; } = false;
+        public string PageClass { get; set; } = string.Empty;
+        public string PageClassNormal { get; set; } = string.Empty;
+        public string PageClassSelected { get; set; } = string.Empty;
+
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             if (ViewContext != null && PageModel != null)
@@ -34,36 +42,40 @@ namespace SportsStore.Infrastructure
 
                 int startPage = Math.Max(1, PageModel.CurrentPage - MaxPagesToShow / 2);
                 int endPage = Math.Min(PageModel.TotalPages, startPage + MaxPagesToShow - 1);
-                if (PageModel.CurrentPage != 1) 
-                { 
+
+                if (PageModel.CurrentPage != 1)
+                {
                     TagBuilder tag = new TagBuilder("a");
                     tag.Attributes["href"] = urlHelper.Action(PageAction, new { productPage = PageModel.CurrentPage - 1 });
                     tag.InnerHtml.AppendHtml(PreviousPageText);
                     result.InnerHtml.AppendHtml(tag);
-
                 }
+
                 for (int i = startPage; i <= endPage; i++)
                 {
                     TagBuilder tag = new TagBuilder("a");
                     tag.Attributes["href"] = urlHelper.Action(PageAction, new { productPage = i });
-                    tag.InnerHtml.Append(i.ToString());
-                    if (i == PageModel.CurrentPage)
+
+                    // Add this block to apply styling
+                    if (PageClassesEnabled)
                     {
-                        tag.AddCssClass("active");
+                        tag.AddCssClass(PageClass);
+                        tag.AddCssClass(i == PageModel.CurrentPage ? PageClassSelected : PageClassNormal);
                     }
+
+                    tag.InnerHtml.Append(i.ToString());
                     result.InnerHtml.AppendHtml(tag);
                 }
+
                 if (PageModel.CurrentPage != PageModel.TotalPages)
                 {
                     TagBuilder tag = new TagBuilder("a");
                     tag.Attributes["href"] = urlHelper.Action(PageAction, new { productPage = PageModel.CurrentPage + 1 });
                     tag.InnerHtml.AppendHtml(NextPageText);
                     result.InnerHtml.AppendHtml(tag);
-
                 }
                 output.Content.AppendHtml(result.InnerHtml);
             }
         }
     }
 }
-
