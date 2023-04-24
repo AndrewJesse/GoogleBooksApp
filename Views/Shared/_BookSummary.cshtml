@@ -1,5 +1,18 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model GoogleBooksApp.Models.ViewModels.BooksListViewModel
+
+@foreach (var book in Model.Books)
+{
+    <tr>
+        <td>@book.VolumeInfo.Title</td>
+        <td>@(string.Join(", ", book.VolumeInfo.Authors))</td>
+
+        <td>@(book.VolumeInfo.Description?.Length > 100 ? book.VolumeInfo.Description.Substring(0, 100) + "..." : book.VolumeInfo.Description)</td>
+        <td>@book.VolumeInfo.PublishedDate</td>
+        <td>
+            @if (book.VolumeInfo.ImageLinks != null)
+            {
+                <img class="book-thumbnail" src="@book.VolumeInfo.ImageLinks.Thumbnail" alt="Book thumbnail" />
+            }
+        </td>
+    </tr>
 }

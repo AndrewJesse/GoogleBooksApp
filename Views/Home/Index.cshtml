@@ -1,6 +1,5 @@
 ﻿@model GoogleBooksApp.Models.ViewModels.BooksListViewModel
 
-
 @{
     ViewData["Title"] = "Home";
 }
@@ -23,23 +22,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach (var book in Model.Books )
-                {
-                    <tr>
-                        <td>@book.VolumeInfo.Title</td>
-                        <td>@(string.Join(", ", book.VolumeInfo.Authors))</td>
-                        <td>@(book.VolumeInfo.Description?.Length > 100 ? book.VolumeInfo.Description.Substring(0, 100) + "..." : book.VolumeInfo.Description)</td>
-
-                        <td>@book.VolumeInfo.PublishedDate</td>
-                        <td>
-                            @if (book.VolumeInfo.ImageLinks != null)
-                            {
-                                <img class="book-thumbnail" src="@book.VolumeInfo.ImageLinks.Thumbnail" alt="Book thumbnail" />
-                            }
-
-                        </td>
-                    </tr>
-                }
+                @await Html.PartialAsync("_BookSummary", Model)
                 </tbody>
             </table>
         </div>

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using GoogleBooksApp.Models;
+using System.Collections.Generic;
 
 namespace YourAppNamespace.Models.ViewModels
 {
