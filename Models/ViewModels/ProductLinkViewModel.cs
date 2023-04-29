@@ -1,6 +1,5 @@
 ﻿// Models/ViewModels/BooksListViewModel.cs
 using Google.Apis.Books.v1.Data;
-using System.Collections.Generic;
 
 namespace GoogleBooksApp.Models.ViewModels
 {
