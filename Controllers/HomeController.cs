@@ -16,10 +16,10 @@ namespace GoogleBooksApp.Controllers
             googleBooksApiClient = new GoogleBooksApiClient(configuration); 
         }
 
-        public async Task<IActionResult> Index(int productPage = 1)
+        public async Task<IActionResult> Index(string subject, int productPage = 1)
         {
             int startIndex = (productPage - 1) * PageSize;
-            var books = await googleBooksApiClient.GetBooksAsync("subject:thriller", startIndex);
+            var books = await googleBooksApiClient.GetBooksAsync($"subject:{subject}", startIndex);
             var viewModel = new BooksListViewModel
             {
                 Books = books.Items
