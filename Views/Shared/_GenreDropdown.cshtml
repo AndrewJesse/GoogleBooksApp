@@ -1,12 +1,14 @@
-﻿<!-- _GenreDropdown.cshtml -->
-<h3>Categories</h3>
-<div class="btn-group">
-    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        Genre
-    </button>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="@Url.Action("Index", "Home", new { subject = "fiction" })">Fiction</a></li>
-        <li><a class="dropdown-item" href="@Url.Action("Index", "Home", new { subject = "thriller" })">Thriller</a></li>
-        <li><a class="dropdown-item" href="@Url.Action("Index", "Home", new { subject = "fantasy" })">Fantasy</a></li>
-    </ul>
+﻿<div class="d-flex flex-column">
+    <h2>Categories</h2>
+    <div class="btn-group mb-3">
+        <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Genre
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="@Url.Action("Index", "Home", new { subject = "fiction" })">Fiction</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index", "Home", new { subject = "thriller" })">Thriller</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index", "Home", new { subject = "fantasy" })">Fantasy</a></li>
+        </ul>
+    </div>
+    <button type="button" class="btn btn-primary mb-3">Search</button>
 </div>
