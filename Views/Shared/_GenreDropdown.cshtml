@@ -1,5 +1,5 @@
 ﻿<div class="d-flex flex-column">
-    <h2>Categories</h2>
+    <h2>Filter</h2>
     <div class="btn-group mb-3">
         <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             Genre
@@ -10,5 +10,6 @@
             <li><a class="dropdown-item" href="@Url.Action("Index", "Home", new { subject = "fantasy" })">Fantasy</a></li>
         </ul>
     </div>
+    <input type="text" class="form-control mb-3" placeholder="Enter text">
     <button type="button" class="btn btn-primary mb-3">Search</button>
 </div>
