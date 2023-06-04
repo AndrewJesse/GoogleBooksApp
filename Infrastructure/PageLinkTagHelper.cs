@@ -48,6 +48,8 @@ namespace SportsStore.Infrastructure
                     TagBuilder tag = new TagBuilder("a");
                     tag.Attributes["href"] = urlHelper.Action(PageAction, new { productPage = PageModel.CurrentPage - 1 });
                     tag.InnerHtml.AppendHtml(PreviousPageText);
+                    tag.AddCssClass("btn"); // Add common class
+                    tag.AddCssClass(PageClassNormal); // Add normal class
                     result.InnerHtml.AppendHtml(tag);
                 }
 
@@ -72,6 +74,8 @@ namespace SportsStore.Infrastructure
                     TagBuilder tag = new TagBuilder("a");
                     tag.Attributes["href"] = urlHelper.Action(PageAction, new { productPage = PageModel.CurrentPage + 1 });
                     tag.InnerHtml.AppendHtml(NextPageText);
+                    tag.AddCssClass("btn"); // Add common class
+                    tag.AddCssClass(PageClassNormal); // Add normal class
                     result.InnerHtml.AppendHtml(tag);
                 }
                 output.Content.AppendHtml(result.InnerHtml);

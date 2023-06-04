@@ -10,6 +10,16 @@
             <li><a class="dropdown-item" href="@Url.Action("Index", "Home", new { subject = "fantasy" })">Fantasy</a></li>
         </ul>
     </div>
-    <input type="text" class="form-control mb-3" placeholder="Enter text">
-    <button type="button" class="btn btn-primary mb-3">Search</button>
+    <input type="text" id="searchInput" class="form-control mb-3" placeholder="Author/Title">
+
+    <button type="button" class="btn btn-primary mb-3" onclick="redirectToSearch()">Search</button>
+
+
 </div>
+<script type="text/javascript">
+    function redirectToSearch() {
+        var input = document.getElementById('searchInput');
+        var value = input.value;
+        location.href = '@Url.Action("Index", "Home")' + '?searchString=' + encodeURIComponent(value);
+    }
+</script>

@@ -16,27 +16,24 @@ namespace GoogleBooksApp.Controllers
             googleBooksApiClient = new GoogleBooksApiClient(configuration); 
         }
 
-        public async Task<IActionResult> Index(string subject, int productPage = 1)
+        public async Task<IActionResult> Index(string searchString, string subject, int productPage = 1)
         {
             int startIndex = (productPage - 1) * PageSize;
-            var books = await googleBooksApiClient.GetBooksAsync($"subject:{subject}", startIndex);
+            var books = await googleBooksApiClient.GetBooksAsync($"inauthor:{searchString}", startIndex);
+
             var viewModel = new BooksListViewModel
             {
-                Books = books.Items
-                    .ToList(),
+                Books = books.Items.ToList(),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = productPage,
                     ItemsPerPage = PageSize,
-                    TotalItems = books.TotalItems.GetValueOrDefault() // Replace this with the appropriate logic to get the total number of items
+                    TotalItems = books.TotalItems.GetValueOrDefault()
                 }
             };
 
             return View(viewModel);
         }
-
-
-
         public IActionResult Privacy()
         {
             return View();
