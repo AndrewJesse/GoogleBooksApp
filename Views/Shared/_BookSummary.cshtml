@@ -4,8 +4,7 @@
 {
     <tr>
         <td>@book.VolumeInfo.Title</td>
-        <td>@(string.Join(", ", book.VolumeInfo.Authors))</td>
-
+        <td>@(book.VolumeInfo.Authors != null ? string.Join(", ", book.VolumeInfo.Authors) : "")</td>
         <td>@(book.VolumeInfo.Description?.Length > 100 ? book.VolumeInfo.Description.Substring(0, 100) + "..." : book.VolumeInfo.Description)</td>
         <td>@book.VolumeInfo.PublishedDate</td>
         <td>
