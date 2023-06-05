@@ -12,8 +12,15 @@
         <div class="col-lg-10 col-md-9 col-sm-12">
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <h1>Book List</h1>
-                <div class="page-item btn-group" page-model="@Model?.PagingInfo" page-action="Index" page-classes-enabled="true"
-                     page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-primary"></div>
+                <div class="page-item btn-group" 
+                page-model="@Model?.PagingInfo" 
+                page-action="Index" 
+                page-classes-enabled="true"
+                page-class="btn" 
+                page-class-normal="btn-outline-dark" 
+                page-class-selected="btn-primary"
+                search-string="@ViewData["searchString"]" 
+                subject="@ViewData["subject"]"></div>
             </div>
 
             <table class="table">

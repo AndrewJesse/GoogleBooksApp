@@ -18,6 +18,8 @@ namespace GoogleBooksApp.Controllers
 
         public async Task<IActionResult> Index(string searchString, string subject, int productPage = 1)
         {
+            ViewBag.SearchString = searchString;
+            ViewBag.Subject = subject;
             int startIndex = (productPage - 1) * PageSize;
             var books = await googleBooksApiClient.GetBooksAsync($"inauthor:{searchString}", startIndex);
 

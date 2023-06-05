@@ -12,6 +12,9 @@ namespace SportsStore.Infrastructure
     [HtmlTargetElement("div", Attributes = "page-model")]
     public class PageLinkTagHelper : TagHelper
     {
+        public string? SearchString { get; set; }
+        public string? Subject { get; set; }
+
         private IUrlHelperFactory urlHelperFactory;
         public PageLinkTagHelper(IUrlHelperFactory helperFactory)
         {
@@ -23,11 +26,8 @@ namespace SportsStore.Infrastructure
         public PagingInfo? PageModel { get; set; }
         public string? PageAction { get; set; }
         public int MaxPagesToShow { get; set; } = 10;
-
         public string PreviousPageText { get; set; } = "&lt;";
         public string NextPageText { get; set; } = "&gt;";
-
-        // Add these new properties for styling
         public bool PageClassesEnabled { get; set; } = false;
         public string PageClass { get; set; } = string.Empty;
         public string PageClassNormal { get; set; } = string.Empty;
@@ -46,7 +46,7 @@ namespace SportsStore.Infrastructure
                 if (PageModel.CurrentPage != 1)
                 {
                     TagBuilder tag = new TagBuilder("a");
-                    tag.Attributes["href"] = urlHelper.Action(PageAction, new { productPage = PageModel.CurrentPage - 1 });
+                    tag.Attributes["href"] = urlHelper.Action(PageAction, new { searchString = SearchString, subject = Subject, productPage = PageModel.CurrentPage - 1 });
                     tag.InnerHtml.AppendHtml(PreviousPageText);
                     tag.AddCssClass("btn"); // Add common class
                     tag.AddCssClass(PageClassNormal); // Add normal class
@@ -56,7 +56,7 @@ namespace SportsStore.Infrastructure
                 for (int i = startPage; i <= endPage; i++)
                 {
                     TagBuilder tag = new TagBuilder("a");
-                    tag.Attributes["href"] = urlHelper.Action(PageAction, new { productPage = i });
+                    tag.Attributes["href"] = urlHelper.Action(PageAction, new { searchString = SearchString, subject = Subject, productPage = i });
 
                     // Add this block to apply styling
                     if (PageClassesEnabled)
@@ -72,7 +72,7 @@ namespace SportsStore.Infrastructure
                 if (PageModel.CurrentPage != PageModel.TotalPages)
                 {
                     TagBuilder tag = new TagBuilder("a");
-                    tag.Attributes["href"] = urlHelper.Action(PageAction, new { productPage = PageModel.CurrentPage + 1 });
+                    tag.Attributes["href"] = urlHelper.Action(PageAction, new { searchString = SearchString, subject = Subject, productPage = PageModel.CurrentPage + 1 });
                     tag.InnerHtml.AppendHtml(NextPageText);
                     tag.AddCssClass("btn"); // Add common class
                     tag.AddCssClass(PageClassNormal); // Add normal class
