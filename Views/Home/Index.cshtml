@@ -10,9 +10,11 @@
             @await Html.PartialAsync("_GenreDropdown")
         </div>
         <div class="col-lg-10 col-md-9 col-sm-12">
-            <h1>Book List</h1>
-            <div class="page-item btn-group" page-model="@Model?.PagingInfo" page-action="Index" page-classes-enabled="true"
-                 page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-primary"></div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1>Book List</h1>
+                <div class="page-item btn-group" page-model="@Model?.PagingInfo" page-action="Index" page-classes-enabled="true"
+                     page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-primary"></div>
+            </div>
 
             <table class="table">
                 <thead>
