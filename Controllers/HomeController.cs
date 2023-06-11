@@ -10,7 +10,7 @@ namespace GoogleBooksApp.Controllers
     public class HomeController : Controller 
     {
         private readonly GoogleBooksApiClient googleBooksApiClient; 
-        public int PageSize = 5;
+        public int PageSize = 10;
         public HomeController(IConfiguration configuration) 
         {
             googleBooksApiClient = new GoogleBooksApiClient(configuration); 

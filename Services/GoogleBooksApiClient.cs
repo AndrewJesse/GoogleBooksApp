@@ -26,7 +26,7 @@ namespace GoogleBooksApp.Services
         public async Task<Volumes> GetBooksAsync(string query, int startIndex = 0)
         {
             var request = _booksService.Volumes.List(query);
-            request.MaxResults = 5; // Set this to match the PageSize in HomeController
+            request.MaxResults = 10; // Set this to match the PageSize in HomeController
             request.StartIndex = startIndex;
             return await request.ExecuteAsync();
         }
