@@ -37,6 +37,17 @@
                 @await Html.PartialAsync("_BookSummary", Model)
                 </tbody>
             </table>
+             <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="page-item btn-group" 
+                page-model="@Model?.PagingInfo" 
+                page-action="Index" 
+                page-classes-enabled="true"
+                page-class="btn" 
+                page-class-normal="btn-outline-dark" 
+                page-class-selected="btn-primary"
+                search-string="@ViewData["searchString"]" 
+                subject="@ViewData["subject"]"></div>
+            </div
         </div>
         
     </div>
