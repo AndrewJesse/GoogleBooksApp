@@ -7,10 +7,14 @@
         <td>@(book.VolumeInfo.Authors != null ? string.Join(", ", book.VolumeInfo.Authors) : "")</td>
         <td>@(book.VolumeInfo.Description?.Length > 100 ? book.VolumeInfo.Description.Substring(0, 100) + "..." : book.VolumeInfo.Description)</td>
         <td>@book.VolumeInfo.PublishedDate</td>
-        <td>
+        <td class="h-100">
             @if (book.VolumeInfo.ImageLinks != null)
             {
                 <img class="book-thumbnail" src="@book.VolumeInfo.ImageLinks.Thumbnail" alt="Book thumbnail" />
+            }
+            else
+            {
+                <img class="book-thumbnail" src="path_to_your_placeholder_image.jpg" alt="No image available" />
             }
         </td>
     </tr>
