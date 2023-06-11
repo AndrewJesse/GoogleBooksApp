@@ -20,3 +20,7 @@ html {
 body {
   margin-bottom: 60px;
 }
+.book-thumbnail {
+    width: 100px;
+    height: 135px
+}
