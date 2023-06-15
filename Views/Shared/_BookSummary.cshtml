@@ -1,10 +1,12 @@
-﻿@model GoogleBooksApp.Models.ViewModels.BooksListViewModel
-
-@foreach (var book in Model.Books)
+﻿@foreach (var book in Model.Books)
 {
     <tr>
         <td>@book.VolumeInfo.Title</td>
-        <td>@(book.VolumeInfo.Authors != null ? string.Join(", ", book.VolumeInfo.Authors) : "")</td>
+        @{
+            var authorsString = book.VolumeInfo.Authors != null ? string.Join(", ", book.VolumeInfo.Authors) : "";
+            var authorsDisplay = authorsString.Length > 100 ? authorsString.Substring(0, 100) + "..." : authorsString;
+        }
+        <td>@authorsDisplay</td>
         <td>@(book.VolumeInfo.Description?.Length > 100 ? book.VolumeInfo.Description.Substring(0, 100) + "..." : book.VolumeInfo.Description)</td>
         <td>@book.VolumeInfo.PublishedDate</td>
         <td class="h-100">
