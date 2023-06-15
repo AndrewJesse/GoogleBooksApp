@@ -21,21 +21,30 @@ namespace GoogleBooksApp.Controllers
             ViewBag.SearchString = searchString;
             ViewBag.Subject = subject;
             int startIndex = (productPage - 1) * PageSize;
-            var books = await googleBooksApiClient.GetBooksAsync($"inauthor:{searchString}", startIndex);
+
+            string queryString = $"inauthor:{searchString}";
+            if (!string.IsNullOrEmpty(subject))
+            {
+                queryString += $" subject:{subject}";
+            }
+
+            var books = await googleBooksApiClient.GetBooksAsync(queryString, startIndex);
 
             var viewModel = new BooksListViewModel
             {
-                Books = books.Items.ToList(),
+                Books = books?.Items?.ToList() ?? new List<Volume>(), // add null check here
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = productPage,
                     ItemsPerPage = PageSize,
-                    TotalItems = books.TotalItems.GetValueOrDefault()
+                    TotalItems = books?.TotalItems.GetValueOrDefault() ?? 0 // add null check here
                 }
             };
 
             return View(viewModel);
         }
+
+
         public IActionResult Privacy()
         {
             return View();

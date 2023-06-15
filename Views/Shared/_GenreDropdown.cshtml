@@ -1,13 +1,13 @@
 ﻿<div class="d-flex flex-column">
     <h2>Filter</h2>
     <div class="btn-group mb-3">
-        <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <button type="button" class="btn btn-light dropdown-toggle" id="genreDropdownButton" data-bs-toggle="dropdown" aria-expanded="false">
             Genre
         </button>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="@Url.Action("Index", "Home", new { subject = "fiction" })">Fiction</a></li>
-            <li><a class="dropdown-item" href="@Url.Action("Index", "Home", new { subject = "thriller" })">Thriller</a></li>
-            <li><a class="dropdown-item" href="@Url.Action("Index", "Home", new { subject = "fantasy" })">Fantasy</a></li>
+            <li><a class="dropdown-item" href="#" onclick="updateGenre(event, 'fiction')">Fiction</a></li>
+            <li><a class="dropdown-item" href="#" onclick="updateGenre(event, 'thriller')">Thriller</a></li>
+            <li><a class="dropdown-item" href="#" onclick="updateGenre(event, 'fantasy')">Fantasy</a></li>
         </ul>
     </div>
     <input type="text" id="searchInput" class="form-control mb-3" placeholder="Author/Title">
@@ -17,9 +17,20 @@
 
 </div>
 <script type="text/javascript">
+    var selectedGenre = '';
+
+    function updateGenre(event, genre) {
+        event.preventDefault();
+        selectedGenre = genre;
+        document.getElementById('genreDropdownButton').textContent = genre;
+    }
+
     function redirectToSearch() {
         var input = document.getElementById('searchInput');
         var value = input.value;
-        location.href = '@Url.Action("Index", "Home")' + '?searchString=' + encodeURIComponent(value);
+        location.href = '?searchString=' + encodeURIComponent(value) + '&subject=' + encodeURIComponent(selectedGenre);
     }
 </script>
+
+
+
