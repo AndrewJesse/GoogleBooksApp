@@ -1,11 +1,14 @@
 using GoogleBooksApp.Services;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
+using GoogleBooksApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<GoogleBooksApiClient>();
+builder.Services.AddDbContext<AppDbContext>(); // This is where we add the DbContext to our services
 builder.Services.AddHsts(opts =>
 {
     opts.MaxAge = TimeSpan.FromDays(1);
