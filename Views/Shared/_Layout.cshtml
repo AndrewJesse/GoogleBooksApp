@@ -28,13 +28,12 @@
                     </ul>
                 </div>
             </div>
-            <div id="loginModalContainer">
-                <!-- Button trigger for login modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Login</button>
+            <div id="loginModalContainer" >
+                <button type="button" class="btn btn-primary fs-6 m-2" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+
             </div>
             <div id="signupModalContainer">
-                <!-- Button trigger for signup modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signupModal">Sign Up</button>
+                <button type="button" class="btn btn-secondary fs-6 m-2" data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</button>
             </div>
 
         </nav>
@@ -53,5 +52,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    @await Html.PartialAsync("_LoginModal")
+    @await Html.PartialAsync("_SignupModal")
 </body>
 </html>
