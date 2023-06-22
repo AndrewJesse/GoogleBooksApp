@@ -2,25 +2,38 @@ using GoogleBooksApp.Services;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using GoogleBooksApp.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Advanced.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<GoogleBooksApiClient>();
-builder.Services.AddDbContext<AppDbContext>(); // This is where we add the DbContext to our services
+
+// Add DbContext with SQLite
+builder.Services.AddDbContext<IdentityContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<IdentityContext>();
 builder.Services.AddHsts(opts =>
 {
     opts.MaxAge = TimeSpan.FromDays(1);
     opts.IncludeSubDomains = true;
 });
+
 builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "BooksLibrary", Version = "v1" }); });
 
 var app = builder.Build();
+
 if (app.Environment.IsProduction())
 {
     app.UseHsts();
 }
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
