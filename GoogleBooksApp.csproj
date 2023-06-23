@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
+		<NoWarn>$(NoWarn);CS7022</NoWarn>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>e544d391-952b-477a-bb8a-efa94704a462</UserSecretsId>
