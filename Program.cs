@@ -1,31 +1,40 @@
+using Advanced.Models;
 using GoogleBooksApp.Services;
-using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using GoogleBooksApp.Data;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages(); // Add this line
 builder.Services.AddSingleton<GoogleBooksApiClient>();
-builder.Services.AddDbContext<AppDbContext>(); // This is where we add the DbContext to our services
+
+// Add DbContext with SQLite
+builder.Services.AddDbContext<IdentityContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<IdentityContext>();
 builder.Services.AddHsts(opts =>
 {
     opts.MaxAge = TimeSpan.FromDays(1);
     opts.IncludeSubDomains = true;
 });
+
 builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "BooksLibrary", Version = "v1" }); });
 
 var app = builder.Build();
-if (app.Environment.IsProduction())
-{
-    app.UseHsts();
-}
+
+// Continue with the rest of your configuration
+
+
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsProduction() || !app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -39,6 +48,9 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages();
+
 app.UseSwagger();
 app.UseSwaggerUI(options => { options.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApp"); });
 
