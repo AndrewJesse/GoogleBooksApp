@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace GoogleBooksApp.Pages
 {
-    public class _ViewLayoutModel : PageModel
+    public class _LayoutModel : PageModel
     {
         public void OnGet()
         {
