@@ -26,21 +26,34 @@ namespace GoogleBooksApp.Pages.Users
         public string Email { get; set; } = string.Empty;
 
         [BindProperty]
-        public string? Password { get; set; }
+        public string Password { get; set; } = string.Empty;
 
-        public async Task OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(string id)
         {
-            IdentityUser user = await UserManager.FindByIdAsync(id);
+            IdentityUser? user = await UserManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                // Handle the situation when the user is not found
+                return NotFound();
+            }
             Id = user.Id;
             UserName = user.UserName;
             Email = user.Email;
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             if (ModelState.IsValid)
             {
-                IdentityUser user = await UserManager.FindByIdAsync(Id);
+                IdentityUser? user = await UserManager.FindByIdAsync(Id);
+                if (user == null)
+                {
+                    // Handle the situation when the user is not found
+                    return NotFound();
+                }
+
                 user.UserName = UserName;
                 user.Email = Email;
 
