@@ -37,9 +37,8 @@ namespace GoogleBooksApp.Pages.Users
                 return NotFound();
             }
             Id = user.Id;
-            UserName = user.UserName;
-            Email = user.Email;
-
+            UserName = user.UserName ?? string.Empty;
+            Email = user.Email ?? string.Empty;
             return Page();
         }
 
