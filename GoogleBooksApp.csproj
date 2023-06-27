@@ -29,6 +29,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Folder Include="Pages\Roles\" />
 		<Folder Include="wwwroot\images\" />
 	</ItemGroup>
 
