@@ -1,12 +1,41 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace GoogleBooksApp.Pages.Roles
 {
-    public class ListModel : PageModel
+    public class ListModel : AdminPageModel
     {
+        public UserManager<IdentityUser> UserManager;
+        public RoleManager<IdentityRole> RoleManager;
+
+        public ListModel(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        {
+            UserManager = userManager;
+            RoleManager = roleManager;
+        }
+
+        public IEnumerable<IdentityRole> Roles { get; set; } = Enumerable.Empty<IdentityRole>();
+
         public void OnGet()
         {
+            Roles = RoleManager.Roles;
+        }
+
+        public async Task<string> GetMembersString(string role)
+        {
+            IEnumerable<IdentityUser> users = (await UserManager.GetUsersInRoleAsync(role));
+            string result = users.Count() == 0 ? "No members" : string.Join(", ", users.Take(3).Select(u => u.UserName).ToArray());
+
+            return users.Count() > 3 ? $"{result}, (plus others)" : result;
+        }
+
+        public async Task<IActionResult> OnPostAsync(string id)
+        {
+            IdentityRole role = await RoleManager.FindByIdAsync(id);
+            await RoleManager.DeleteAsync(role);
+
+            return RedirectToPage();
         }
     }
 }
