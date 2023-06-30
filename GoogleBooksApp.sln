@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoogleBooksApp", "GoogleBooksApp.csproj", "{180472AD-9BE3-4D23-B701-50EE595F991A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleBooksApp.DataModel", "..\GoogleBooksApp.DataModel\GoogleBooksApp.DataModel.csproj", "{86B57086-567C-4C64-B1D8-875215488B9B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{180472AD-9BE3-4D23-B701-50EE595F991A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{180472AD-9BE3-4D23-B701-50EE595F991A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{180472AD-9BE3-4D23-B701-50EE595F991A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86B57086-567C-4C64-B1D8-875215488B9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86B57086-567C-4C64-B1D8-875215488B9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86B57086-567C-4C64-B1D8-875215488B9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86B57086-567C-4C64-B1D8-875215488B9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
