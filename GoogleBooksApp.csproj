@@ -32,8 +32,4 @@
 		<Folder Include="wwwroot\images\" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\GoogleBooksApp.DataModel\GoogleBooksApp.DataModel.csproj" />
-	</ItemGroup>
-
 </Project>
