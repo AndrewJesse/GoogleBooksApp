@@ -1,6 +1,7 @@
-﻿namespace GoogleBooksApp.Models
+﻿using Microsoft.AspNetCore.Identity;
+namespace GoogleBooksApp.Models
 {
-    public class User
+    public class User : IdentityUser
     {
         public int? UserId { get; set; }
         public string? Username { get; set; }
