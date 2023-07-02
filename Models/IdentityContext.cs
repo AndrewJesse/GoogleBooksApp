@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 // Define the namespace in which our models reside
-namespace Advanced.Models
+namespace GoogleBooksApp.Models
 {
     // IdentityContext inherits from IdentityDbContext, a class provided by ASP.NET Core 
     // Identity that extends the base DbContext and includes built-in entity configurations 
