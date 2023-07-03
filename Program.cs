@@ -11,19 +11,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages(); // Add this line
 builder.Services.AddSingleton<GoogleBooksApiClient>();
 
-// Add DbContext with SQLite
-builder.Services.AddDbContext<IdentityContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<IdentityContext>();
-builder.Services.AddHsts(opts =>
-{
-    opts.MaxAge = TimeSpan.FromDays(1);
-    opts.IncludeSubDomains = true;
-});
-
 builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "BooksLibrary", Version = "v1" }); });
 
 builder.Services.Configure<IdentityOptions>(opts =>
