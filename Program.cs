@@ -28,8 +28,11 @@ builder.Services.Configure<IdentityOptions>(opts =>
 var app = builder.Build();
 
 // Continue with the rest of your configuration
-builder.Services.AddDbContext<IdentityContext>(options =>
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 
 // Configure the HTTP request pipeline.
