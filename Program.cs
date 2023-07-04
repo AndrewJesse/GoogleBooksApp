@@ -1,6 +1,7 @@
 using GoogleBooksApp.Models;
 using GoogleBooksApp.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -27,6 +28,8 @@ builder.Services.Configure<IdentityOptions>(opts =>
 var app = builder.Build();
 
 // Continue with the rest of your configuration
+builder.Services.AddDbContext<IdentityContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 // Configure the HTTP request pipeline.
