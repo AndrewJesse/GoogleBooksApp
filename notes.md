@@ -1,4 +1,4 @@
-﻿create a bookshelf page
-create the sign up process
+﻿create the sign up process
+add contents of bookshelf page
 make the bookshelf require authorization
-delete privacy page
+
