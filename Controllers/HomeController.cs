@@ -44,11 +44,6 @@ namespace GoogleBooksApp.Controllers
             return View(viewModel);
         }
 
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
         public IActionResult Bookshelf()
         {
             return View();
