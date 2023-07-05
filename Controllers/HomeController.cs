@@ -7,13 +7,13 @@ using GoogleBooksApp.Models.ViewModels;
 
 namespace GoogleBooksApp.Controllers
 {
-    public class HomeController : Controller 
+    public class HomeController : Controller
     {
-        private readonly GoogleBooksApiClient googleBooksApiClient; 
+        private readonly GoogleBooksApiClient googleBooksApiClient;
         public int PageSize = 10;
-        public HomeController(IConfiguration configuration) 
+        public HomeController(IConfiguration configuration)
         {
-            googleBooksApiClient = new GoogleBooksApiClient(configuration); 
+            googleBooksApiClient = new GoogleBooksApiClient(configuration);
         }
 
         public async Task<IActionResult> Index(string searchString, string subject, int productPage = 1)
@@ -46,6 +46,10 @@ namespace GoogleBooksApp.Controllers
 
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult Bookshelf()
         {
             return View();
         }
